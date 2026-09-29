@@ -1,0 +1,248 @@
+@import 'tailwindcss';
+
+/*
+ * Tailwind v4 defaults `dark:` to prefers-color-scheme. The reader has explicit
+ * themes, so dark is driven by a data attribute on <html>. The `:not([sepia])`
+ * guard keeps the warm reading palette out of dark styling.
+ */
+@custom-variant dark (&:where([data-theme='dark'], [data-theme='dark'] *));
+
+@theme {
+  --font-sans:
+    ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial,
+    'Noto Sans', sans-serif;
+  --font-serif: ui-serif, Georgia, Cambria, 'Times New Roman', serif;
+}
+
+/*
+ * Reader text sizes, exposed as custom properties so the reader can set them
+ * with an inline style. Inline styles beat any stylesheet rule, which avoids
+ * the cascade problems that arbitrary-value utility classes had here.
+ */
+:root {
+  --reader-size-sm: 1rem;
+  --reader-size-md: 1.125rem;
+  --reader-size-lg: 1.3rem;
+  --reader-leading-sm: 1.7;
+  --reader-leading-md: 1.75;
+  --reader-leading-lg: 1.8;
+  --reader-measure: 42rem;
+}
+
+/*
+ * Colour themes.
+ *
+ * `light` is a warm off-white rather than #fff: a pure white page next to a
+ * dark sidebar is harsh on the eyes. `sepia` goes further for long reading.
+ */
+:root,
+[data-theme='light'] {
+  color-scheme: light;
+  --app-bg: #f6f5f1;
+  --app-panel: #fdfcfa;
+  --app-panel-muted: #efede6;
+  --app-border: #e2dfd6;
+  --app-text: #23221f;
+  --app-text-muted: #6b675e;
+  --app-accent-bg: #eceaf9;
+  --app-accent-text: #3b3563;
+}
+
+[data-theme='sepia'] {
+  color-scheme: light;
+  --app-bg: #f2e9d8;
+  --app-panel: #f8f1e2;
+  --app-panel-muted: #ece0c8;
+  --app-border: #ddcdb0;
+  --app-text: #3b3428;
+  --app-text-muted: #6f6552;
+  --app-accent-bg: #e6dcc4;
+  --app-accent-text: #4a3f2a;
+}
+
+[data-theme='dark'] {
+  color-scheme: dark;
+  --app-bg: #0c0c0d;
+  --app-panel: #151517;
+  --app-panel-muted: #1e1e21;
+  --app-border: #2b2b2f;
+  --app-text: #ededf0;
+  --app-text-muted: #a1a1a8;
+  --app-accent-bg: #23232a;
+  --app-accent-text: #b9b6f2;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  background-color: var(--app-bg);
+  color: var(--app-text);
+  -webkit-font-smoothing: antialiased;
+}
+
+/*
+ * Theme-aware utilities.
+ *
+ * Declared with `@utility` (rather than plain classes) so Tailwind's variants
+ * work on them: `hover:app-muted`, `dark:app-panel`, and so on. Each uses a
+ * `--tw-*` custom property so opacity modifiers such as `bg-blue-50/60` and
+ * `dark:bg-neutral-900/60` keep working.
+ */
+@utility app-bg {
+  background-color: color-mix(in oklab, var(--app-bg) var(--tw-bg-opacity, 100%), transparent);
+}
+
+@utility app-panel {
+  background-color: color-mix(in oklab, var(--app-panel) var(--tw-bg-opacity, 100%), transparent);
+}
+
+@utility app-muted {
+  background-color: color-mix(in oklab, var(--app-panel-muted) var(--tw-bg-opacity, 100%), transparent);
+}
+
+@utility app-active {
+  background-color: color-mix(in oklab, var(--app-accent-bg) var(--tw-bg-opacity, 100%), transparent);
+}
+
+@utility app-border {
+  border-color: var(--app-border);
+}
+
+@utility app-text {
+  color: var(--app-text);
+}
+
+@utility app-text-muted {
+  color: var(--app-text-muted);
+}
+
+@utility app-active-text {
+  color: var(--app-accent-text);
+}
+
+.article-body {
+  color: var(--app-text);
+  font-size: var(--reader-size, 1.125rem);
+  line-height: var(--reader-leading, 1.75);
+  /* Long URLs and code must not force horizontal scrolling. */
+  overflow-wrap: break-word;
+}
+
+.article-body p,
+.article-body ul,
+.article-body ol,
+.article-body blockquote,
+.article-body pre,
+.article-body figure,
+.article-body table {
+  margin-block: 1rem;
+}
+
+.article-body h1,
+.article-body h2,
+.article-body h3,
+.article-body h4 {
+  margin-block: 1.5rem 0.75rem;
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.article-body a {
+  color: #1d4ed8;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+[data-theme='sepia'] .article-body a {
+  color: #7a4a12;
+}
+
+[data-theme='dark'] .article-body a {
+  color: #7ea6ff;
+}
+
+.article-body img,
+.article-body video {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin-block: 1rem;
+  border-radius: 0.5rem;
+}
+
+.article-body ul {
+  list-style: disc;
+  padding-inline-start: 1.5rem;
+}
+
+.article-body ol {
+  list-style: decimal;
+  padding-inline-start: 1.5rem;
+}
+
+.article-body li {
+  margin-block: 0.35rem;
+}
+
+.article-body blockquote {
+  border-inline-start: 3px solid var(--app-border);
+  padding-inline-start: 1rem;
+  font-style: italic;
+  color: var(--app-text-muted);
+}
+
+.article-body pre {
+  overflow-x: auto;
+  border-radius: 0.5rem;
+  background-color: var(--app-panel-muted);
+  padding: 1rem;
+  font-size: 0.9em;
+}
+
+.article-body code {
+  border-radius: 0.25rem;
+  background-color: var(--app-panel-muted);
+  padding: 0.1em 0.35em;
+  font-size: 0.88em;
+}
+
+.article-body pre code {
+  background-color: transparent;
+  padding: 0;
+}
+
+.article-body table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.95em;
+}
+
+.article-body th,
+.article-body td {
+  border: 1px solid var(--app-border);
+  padding: 0.5rem 0.75rem;
+  text-align: left;
+}
+
+.article-body hr {
+  border-color: var(--app-border);
+  margin-block: 1.5rem;
+}
+
+/* Clamp previews in the list view without needing a line-clamp plugin. */
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.line-clamp-3 {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}

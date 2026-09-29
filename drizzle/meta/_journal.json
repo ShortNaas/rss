@@ -1,0 +1,34 @@
+{
+  "version": "7",
+  "dialect": "postgresql",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "7",
+      "when": 1790656501427,
+      "tag": "0000_numerous_ikaris",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1790659238672,
+      "tag": "0001_full_text_search",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1790662000000,
+      "tag": "0002_folders_and_tags",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1790661862247,
+      "tag": "0003_article_extraction",
+      "breakpoints": true
+    }
+  ]
+}

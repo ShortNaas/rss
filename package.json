@@ -1,0 +1,47 @@
+{
+  "name": "rss-reader",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "clean": "rm -rf .next",
+    "typecheck": "tsc --noEmit",
+    "test:e2e": "node scripts/e2e.mjs",
+    "test:splitter": "node scripts/testSplitStatements.mjs",
+    "test:http": "tsx scripts/testHttp.mts",
+    "test": "npm run typecheck && npm run test:splitter && npm run test:http",
+    "db:generate": "drizzle-kit generate",
+    "db:migrate": "node --env-file=.env.local scripts/migrate.mjs",
+    "db:check": "node --env-file=.env.local scripts/dbCheck.mjs",
+    "db:migrate:local": "node scripts/migrate.mjs",
+    "db:reset:local": "rm -rf .pglite-data && node scripts/migrate.mjs",
+    "db:studio": "drizzle-kit studio"
+  },
+  "dependencies": {
+    "@electric-sql/pglite": "^0.5.8",
+    "@mozilla/readability": "^0.6.0",
+    "@neondatabase/serverless": "^1.1.0",
+    "drizzle-orm": "^0.45.3",
+    "feedsmith": "^3.0.1",
+    "linkedom": "^0.18.13",
+    "next": "^16.3.6",
+    "react": "^19.3.0",
+    "react-dom": "^19.3.0",
+    "sanitize-html": "^2.17.7",
+    "server-only": "^0.0.1"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4.3.3",
+    "@types/node": "^22.10.2",
+    "@types/react": "^19.2.0",
+    "@types/react-dom": "^19.2.0",
+    "@types/sanitize-html": "^2.16.0",
+    "drizzle-kit": "^0.31.11",
+    "tailwindcss": "^4.3.3",
+    "tsx": "^4.23.15",
+    "typescript": "^5.9.3"
+  }
+}

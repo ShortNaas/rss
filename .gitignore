@@ -1,0 +1,21 @@
+node_modules/
+.next/
+out/
+build/
+
+# Local environment. Every .env file is ignored except the tracked template,
+# so a stray .env.production or .env.backup can never be committed.
+.env*
+!.env.example
+
+# Local PGlite database (dev-only fallback)
+.pglite-data/
+
+# Workspace-local npm cache (home cache is not writable in some sandboxes)
+.npm-cache/
+.install.log
+
+# Misc
+*.tsbuildinfo
+next-env.d.ts
+.DS_Store
