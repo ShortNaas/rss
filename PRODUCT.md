@@ -76,4 +76,4 @@ That is the mechanism a neighbouring reader could not copy without doing the ext
 
 No product-specific accessibility requirement has been established by the user, and there is no external audience to satisfy.
 
-The existing implementation already clears WCAG AA for body text in all three themes (measured contrast: light 14.6:1, sepia 10.2:1, dark 16.7:1; muted text 5.2 / 4.8 / 7.6:1). That is a floor to hold, not a claim of conformance — future work should not regress it.
+The existing implementation already clears WCAG AA for body text in all three themes (measured contrast: light 14.6:1, sepia 10.2:1, dark 16.7:1 muted text 5.2 / 4.8 / 7.6:1). That is a floor to hold, not a claim of conformance — future work should not regress it.
