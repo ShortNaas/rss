@@ -1,15 +1,34 @@
 import type { Metadata, Viewport } from 'next';
+import { ServiceWorkerRegistrar } from '@/components/ServiceWorkerRegistrar';
 import './globals.css';
 
 export const metadata: Metadata = {
   title: 'RSS Reader',
-  description: 'A single-user RSS reader.',
+  description: 'A single-user RSS reader with in-app full-text reading.',
   robots: { index: false, follow: false },
+  // Points at app/manifest.ts, which Next serves at /manifest.webmanifest.
+  manifest: '/manifest.webmanifest',
+  icons: {
+    icon: [
+      { url: '/favicon.ico', sizes: 'any' },
+      { url: '/icon-192.png', type: 'image/png', sizes: '192x192' },
+      { url: '/icon-512.png', type: 'image/png', sizes: '512x512' },
+    ],
+    apple: [{ url: '/apple-touch-icon.png', sizes: '180x180', type: 'image/png' }],
+  },
+  appleWebApp: {
+    capable: true,
+    title: 'RSS',
+    // Lets the app's own background run under the status bar once installed.
+    statusBarStyle: 'black-translucent',
+  },
 };
 
 export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1,
+  // Paint under the notch/home indicator; globals.css pads the shell back in.
+  viewportFit: 'cover',
   // Tints the browser UI to match the default (sepia) and dark themes.
   themeColor: [
     { media: '(prefers-color-scheme: light)', color: '#f2e9d8' },
@@ -60,7 +79,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <head>
         <script dangerouslySetInnerHTML={{ __html: THEME_BOOTSTRAP }} />
       </head>
-      <body className="min-h-screen font-sans">{children}</body>
+      <body className="min-h-screen font-sans">
+        {children}
+        <ServiceWorkerRegistrar />
+      </body>
     </html>
   );
 }

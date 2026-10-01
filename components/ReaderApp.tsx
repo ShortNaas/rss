@@ -470,7 +470,7 @@ export function ReaderApp({ localDatabase }: ReaderAppProps) {
 
   return (
     <div className="flex min-h-screen flex-col">
-      <header className="sticky top-0 z-10 border-b app-border app-panel/90 backdrop-blur dark:app-border dark:app-bg/90">
+      <header className="safe-top sticky top-0 z-10 border-b app-border app-panel/90 backdrop-blur dark:app-border dark:app-bg/90">
         <div className="mx-auto flex max-w-7xl flex-wrap items-center gap-3 px-4 py-3">
           <h1 className="text-lg font-semibold tracking-tight">RSS Reader</h1>
 

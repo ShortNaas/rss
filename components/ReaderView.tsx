@@ -271,7 +271,7 @@ export function ReaderView({
 
   return (
     <div
-      className="fixed inset-0 z-50 flex flex-col app-panel dark:app-bg"
+      className="fixed inset-0 z-50 flex flex-col safe-top safe-bottom app-panel dark:app-bg"
       role="dialog"
       aria-modal="true"
       aria-label="Article reader"

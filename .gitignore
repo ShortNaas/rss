@@ -18,3 +18,8 @@ build/
 *.tsbuildinfo
 next-env.d.ts
 .DS_Store
+
+# Impeccable build artifacts (screenshots, build state) — not source
+.impeccable/review/
+.impeccable/build/
+.impeccable/mocks/

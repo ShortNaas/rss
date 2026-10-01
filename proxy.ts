@@ -1,8 +1,23 @@
 import { NextResponse, type NextRequest } from 'next/server';
 import { SESSION_COOKIE, getAuthConfig, verifySessionToken } from './lib/auth';
 
-/** Reachable without a session. */
-const PUBLIC_PATHS = new Set(['/login', '/api/auth/login', '/api/auth/logout']);
+/**
+ * Reachable without a session.
+ *
+ * The web manifest and the service worker must be public or the browser cannot
+ * fetch them: a 307 to /login silently breaks installability and service worker
+ * registration. Neither leaks anything — the manifest is app metadata the
+ * browser fetches before any session exists, and sw.js is only a caching policy
+ * whose cached content is the data-free app shell. All actual feed data stays
+ * behind the gate via /api/*, which the service worker never caches.
+ */
+const PUBLIC_PATHS = new Set([
+  '/login',
+  '/manifest.webmanifest',
+  '/sw.js',
+  '/api/auth/login',
+  '/api/auth/logout',
+]);
 
 function isCronRequest(pathname: string) {
   // Vercel Cron cannot send a session cookie; /api/cron/* authenticates with
